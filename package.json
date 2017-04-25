@@ -1,17 +1,28 @@
 {
-  "name": "Bem",
-  "version": "0.0.1",
-  "description": "A bem tool for JS",
-  "main": "build/index.js",
+  "name": "bem-immutable",
+  "version": "0.1.5",
+  "description": "A immutable bem tool for JS",
+  "main": "build/bundle.min.js",
   "repository": "https://github.com/JWo1F/bem",
   "author": "JWo1F",
   "license": "MIT",
+  "files": [
+    "build/*.js",
+    "src/**"
+  ],
+  "keywords": [
+    "bem", "block", "element", "modificator", "yandex", "block-element-modificator",
+    "mix", "mod", "immutalbe", "typescript", "css", "class", "className", "scope"
+  ],
   "scripts": {
-    "build": "webpack --config config/webpack.dev.config.js --display-error-details"
+    "build": "webpack --config config/webpack.dev.config.js",
+    "build:prod": "webpack --config config/webpack.production.config.js",
+    "prepublish": "yarn run build && yarn run build:prod"
   },
   "devDependencies": {
     "ts-loader": "^2.0.3",
     "typescript": "^2.2.2",
+    "uglifyjs-webpack-plugin": "^0.4.3",
     "webpack": "^2.4.1"
   }
 }
