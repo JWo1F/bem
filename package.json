@@ -1,0 +1,17 @@
+{
+  "name": "Bem",
+  "version": "0.0.1",
+  "description": "A bem tool for JS",
+  "main": "build/index.js",
+  "repository": "https://github.com/JWo1F/bem",
+  "author": "JWo1F",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --config config/webpack.dev.config.js --display-error-details"
+  },
+  "devDependencies": {
+    "ts-loader": "^2.0.3",
+    "typescript": "^2.2.2",
+    "webpack": "^2.4.1"
+  }
+}
