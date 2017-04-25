@@ -2,14 +2,12 @@ type BoolHash = {
   [key:string]:boolean
 };
 
-interface BemInterface {
-  mod(name:string): BemInterface;
-  mod(name:BoolHash): BemInterface;
-  mod(name:string[]): BemInterface;
+type LikeArray = string|BoolHash|string[];
 
-  mix(name:string): BemInterface;
-  mix(name:BoolHash): BemInterface;
-  mix(name:string[]): BemInterface;
+interface BemInterface {
+  mod(name:LikeArray): BemInterface;
+
+  mix(name:LikeArray): BemInterface;
 }
 
 interface BemRootInterface extends BemInterface {
@@ -31,20 +29,18 @@ abstract class BemAbstract{
     this.name = name;
   }
 
-  public mod(name: string|string[]|BoolHash): BemAbstract {
+  public mod(name: LikeArray): BemAbstract {
     const cur = this.clone();
-    const arr = (typeof name == 'string') ? name.split(' ') : (name instanceof Array ? name : hashToArr(name));
 
-    cur.mods.push(...arr);
+    cur.mods.push(...likeArrayToArray(name));
 
     return cur;
   }
 
-  public mix(name: string|string[]|BoolHash): BemAbstract {
+  public mix(name: LikeArray): BemAbstract {
     const cur = this.clone();
-    const arr = (typeof name == 'string') ? name.split(' ') : (name instanceof Array ? name : hashToArr(name));
 
-    cur.mixes.push(...arr);
+    cur.mixes.push(...likeArrayToArray(name));
 
     return cur;
   }
@@ -103,6 +99,16 @@ class BemElement extends BemAbstract implements BemElementInterface {
     result.push(...this.mixes);
 
     return result.join(' ');
+  }
+}
+
+function likeArrayToArray(arr:LikeArray): string[] {
+  if(typeof arr == 'string') {
+    return arr.split(' ');
+  } else if(arr instanceof Array) {
+    return arr;
+  } else {
+    return hashToArr(arr);
   }
 }
 
