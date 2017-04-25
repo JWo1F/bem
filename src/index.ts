@@ -67,7 +67,8 @@ export class BemRoot extends BemAbstract implements BemRootInterface {
   public stringify(): string {
     const result:string[] = [];
 
-    result.push(...this.mods.map(mod => this.name + '_' + mod));
+    result.push(this.name);
+    result.push(...this.mods.map(mod => result[0] + '_' + mod));
     result.push(...this.mixes);
 
     return result.join(' ');
@@ -95,7 +96,8 @@ class BemElement extends BemAbstract implements BemElementInterface {
   public stringify(): string {
     const result:string[] = [];
 
-    result.push(...this.mods.map(mod => this.name + '__' + this.parent + '_' + mod));
+    result.push(this.name + '__' + this.parent);
+    result.push(...this.mods.map(mod => result[0] + '_' + mod));
     result.push(...this.mixes);
 
     return result.join(' ');
