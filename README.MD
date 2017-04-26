@@ -30,4 +30,6 @@ console.log(elem.mod({ mod1: 1, mod2: true, mod3: 0, mod4: false })); // block__
 console.log(elem.mix({ mix1: 1, mix2: true, mix3: 0, mix4: false })); // block__element mix1 mix2
 
 console.log(elem.mod('a').mod('b').mix('c')); // block__element block__element_a block__element_b c
+
+console.log(elem.mod('a').mix(box.element('y').mod('is'))); // block__element block__element_a block__y block__y_is
 ```

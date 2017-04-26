@@ -2,7 +2,7 @@ type BoolHash = {
   [key:string]:boolean
 };
 
-type LikeArray = string|BoolHash|string[];
+type LikeArray = string|BoolHash|string[]|BemAbstract;
 
 interface BemInterface {
   mod(name:LikeArray): BemInterface;
@@ -24,6 +24,7 @@ abstract class BemAbstract{
   protected mixes:string[] = [];
   protected abstract clone(): BemAbstract;
   protected abstract stringify(): string;
+  public abstract parse(): string[];
 
   constructor(name:string) {
     this.name = name;
@@ -64,14 +65,21 @@ export class BemRoot extends BemAbstract implements BemRootInterface {
     return new BemElement(name, this.name);
   }
 
-  public stringify(): string {
+  public parse(): string[] {
     const result:string[] = [];
 
     result.push(this.name);
     result.push(...this.mods.map(mod => result[0] + '_' + mod));
     result.push(...this.mixes);
 
-    return result.join(' ');
+    return result.reduce((arr:string[], cur:string) => {
+      if(arr.indexOf(cur) > -1) return arr;
+      else return [ ...arr, cur ];
+    }, []);
+  }
+
+  protected stringify(): string {
+    return this.parse().join(' ');
   }
 }
 
@@ -93,14 +101,21 @@ class BemElement extends BemAbstract implements BemElementInterface {
     return element;
   }
 
-  public stringify(): string {
+  public parse(): string[] {
     const result:string[] = [];
 
-    result.push(this.name + '__' + this.parent);
+    result.push(this.parent + '__' + this.name);
     result.push(...this.mods.map(mod => result[0] + '_' + mod));
     result.push(...this.mixes);
 
-    return result.join(' ');
+    return result.reduce((arr:string[], cur:string) => {
+      if(arr.indexOf(cur) > -1) return arr;
+      else return [ ...arr, cur ];
+    }, []);
+  }
+
+  protected stringify(): string {
+    return this.parse().join(' ');
   }
 }
 
@@ -109,6 +124,8 @@ function likeArrayToArray(arr:LikeArray): string[] {
     return arr.split(' ');
   } else if(arr instanceof Array) {
     return arr;
+  } else if(arr instanceof BemAbstract) {
+    return arr.parse();
   } else {
     return hashToArr(arr);
   }
