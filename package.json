@@ -1,6 +1,6 @@
 {
   "name": "bem-immutable",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A immutable bem tool for JS",
   "main": "build/bundle.min.js",
   "repository": "https://github.com/JWo1F/bem",

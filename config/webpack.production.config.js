@@ -8,7 +8,8 @@ module.exports = {
   output: {
     filename: 'bundle.min.js',
     path: path.resolve(__dirname, '../build'),
-    library: 'bem'
+    library: 'bem-immutable',
+    libraryTarget: 'umd'
   },
 
   resolve: {
