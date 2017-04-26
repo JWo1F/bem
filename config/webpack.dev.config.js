@@ -7,7 +7,8 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, '../build'),
-    library: 'bem'
+    library: 'bem',
+    libraryTarget: 'umd'
   },
 
   resolve: {

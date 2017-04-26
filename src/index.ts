@@ -125,3 +125,5 @@ function hashToArr(hash:BoolHash): string[] {
 
   return result;
 }
+
+export default BemRoot;

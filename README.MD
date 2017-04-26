@@ -9,6 +9,7 @@ Or npm: `npm i --save bem-immutable`
 ## Use
 ```javascript
 import { BemRoot } from 'bem-immutable';
+// or import Bem from 'bem-immutable';
 
 const box = new BemRoot('block');
 const elem = box.element('element');
